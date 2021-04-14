@@ -1,20 +1,70 @@
 %======SAC Grundprinzip===========
 \section{SAC Grundprinzip}
 
-\begin{frame}{}
+\begin{frame}{Kontinuierlicher Aktionsraum}
+\begin{itemize}
+\item kontinuierliche Aktionsräume benötigen
+\item[] $\Rightarrow$ Approximation für Q-Funktion
+\item[] $\Rightarrow$ Approximation für Strategie \\[12pt]
+\item Schritt von Tabellen zu DNNs
+\item Optimierung mittels gradient descent
+\end{itemize}
+\end{frame}
 
+\begin{frame}{Funktionen und deren Netzwerke}
+\begin{itemize}
+\item State Value Funktion:
+\item[] \textcolor{blue}{$V_{\psi}(s_{t})$} \,\,\,\,\,		$\rightarrow$ Skalar als Ausgabe \\[6pt]
+\item Q-Funktion:
+\item[] \textcolor{red}{$Q_{\theta}(s_{t},a_{t})$}		$\rightarrow$ Skalar als Ausgabe \\[6pt]
+\item Strategie:
+\item[] \textcolor{green}{$\pi_{\phi}(s_{t}|a_{t})$} \,	$\rightarrow$ Mittelwert und Kovarianz als Ausgabe $\Rightarrow$ Gauss \\[12pt]
+\end{itemize}
+Mit Parametervektoren \textcolor{blue}{$\psi$}, \textcolor{red}{$\theta$} und \textcolor{green}{$\phi$}
 \end{frame}
 
 %======SAC Update Regeln==========
 \section{SAC Update Regeln}
 
-\begin{frame}{}
+\begin{frame}{State Value Funktion}
+\begin{itemize}
+\item eigenes Netzwetk nicht notwendig, aber
+\begin{itemize}
+\item stabilisiert Training
+\item macht simultanes Training aller Netzwerke möglich
+\end{itemize}
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Optimierung State Value Funktion}
+
+\end{frame}
+
+\begin{frame}{Q-Funktion}
+
+\end{frame}
+
+\begin{frame}{Optimierung Q-Funktion}
+
+\end{frame}
+
+\begin{frame}{Optimierung der Strategie}
 
 \end{frame}
 
 %======SAC Algorithmus============
 \section{SAC Algorithmus}
 
-\begin{frame}{}
+\begin{frame}{Algorithmus (1/2)}
 
 \end{frame}
+
+\begin{frame}{Algorithmus (2/2)}
+
+\end{frame}
+
+
+
+
+
+
