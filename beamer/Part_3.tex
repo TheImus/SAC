@@ -1,18 +1,13 @@
 \section*{Ergbnisse}
-\begin{frame}
-    \frametitle{Conclusion}
-    \begin{itemize}    
-        \item Performance im Vergleich zu TD3 und A2C
-        \item Vor- und Nachteile von SAC
-    \end{itemize}
-\end{frame}
+%\begin{frame}
+%    \frametitle{Conclusion}
+%    \begin{itemize}    
+%        \item Performance im Vergleich zu TD3 und A2C
+%        \item Vor- und Nachteile von SAC
+%    \end{itemize}
+%\end{frame}
 
-\begin{frame}{Performance}
-    \begin{itemize}
-        \item SAC soll stabiler laufen als TD3 Algorithmen
-        \item Testumgebung gym
-    \end{itemize}    
-\end{frame}
+
 
 
 \begin{frame}{Ziel der Experimente}
@@ -20,12 +15,9 @@
             \item Stabilität und Sample Komplexität im Vergleich zu anderen Algorithmen
             \begin{itemize}
                 \item kontinuierliche Aufgaben
+                \item verschiedene Schwierigkeitgrade
             \end{itemize}  
             \item OpenAI gym und rllab
-            \begin{itemize}
-                \item schwierig für off-policy Algorithmen
-                \item Parametertuning bei komplexeren Aufgaben schwierig
-            \end{itemize}
         \end{itemize}
 \end{frame}
 
@@ -34,14 +26,20 @@
         \item SAC
         \begin{itemize}
             \item mean action
+            \item feste und variable Temperatur
         \end{itemize} 
-        \item DDPG
         \item PPO
+        \item DDPG
+        \item TD3
         \item SQL mit zwei Q Funktionen
         \begin{itemize}
             \item evaluated with exploration noise
+        
         \end{itemize}
-        \item TD3
+        \item 5 Instanzen mit einer Evaluation alle 1000 Schritte
+        \item Total average return shown in the following
+        \item schattierter Verlauf sind alle fünf Durchläufe
+        
     \end{itemize}
         
 \end{frame}
