@@ -38,26 +38,65 @@ Mit Parametervektoren \textcolor{blue}{$\psi$}, \textcolor{red}{$\theta$} und \t
 \end{frame}
 
 \begin{frame}{Optimierung State Value Funktion}
+\begin{itemize}
+\item Minimierung des Fehlers
+\item Fehler: Residuenquadratsumme aus state-value und Erwartungswert
+\end{itemize}
+$J_{V}(\psi)=\mathbb{E}_{s_{t}\sim D}\left[\frac{1}{2}(V_{\psi}(s_{t})-\mathbb{E}_{a_{t}\sim \pi_{\phi}}[Q_{\theta}(s_{t},a_{t})-log \pi_{\phi}(s_{t}|a_{t})])^{2}\right]$ \\[12pt]
 
-\end{frame}
-
-\begin{frame}{Q-Funktion}
-
+$\hat{\nabla}_{\psi}J_{V}(\psi)=\nabla_{\psi}V_{\psi}(s_{t})(V_{\psi}(s_{t})-Q_{\theta}(s_{t},a_{t})+log \pi_{\phi}(s_{t}|a_{t}))$
 \end{frame}
 
 \begin{frame}{Optimierung Q-Funktion}
+\begin{itemize}
+\item Minimierung des Fehlers
+\item Fehler: soft Bellman Restwert
+\end{itemize}
+$J_{Q}(\theta)=\mathbb{E}_{(s_{t},a_{t})\sim D}\left[\frac{1}{2}(Q_{\theta}(s_{t},a_{t})-\hat Q_{\theta}(s_{t},a_{t}))^{2}\right]$ \\[12pt]
 
+mit $\hat Q(s_{t},a_{t})=r(s_{t},a_{t})+\gamma \mathbb{E}_{s_{t+1}\sim p}[V_{\overline{\psi}}(s_{t+1})]$ \\[12pt]
+
+$\hat{\nabla}_{\theta}J_{Q}(\theta)=\nabla_{\theta}Q_{\theta}(a_{t},s_{t})(Q_{\theta}(s_{t},a_{t})-r(s_{t},a_{t})-\gamma V_{\overline{\psi}}(s_{t+1}))$
 \end{frame}
 
 \begin{frame}{Optimierung der Strategie}
+\begin{itemize}
+\item Minimierung des Fehlers
+\item Fehler: KL-Divergenz
+\end{itemize}
+$J_{\pi}(\phi)=\mathbb{E}_{s_{t}\sim D}\left[D_{KL}\left(\pi_{\phi}(\cdot | s_{t})||\frac{exp(Q_{\theta}(s_{t},\cdot))}{Z_{\theta}(s_{t})}\right)\right]$
+\begin{itemize}
+\item der reparameterization trick wird angewandt
+\end{itemize}
+$a_{t}=f_{\phi}(\epsilon_{t};s_{t})$
 
+$\Rightarrow$
+$J_{\pi}(\phi)=\mathbb{E}_{s_{t}\sim D,\epsilon_{t}\sim N}\left[log\pi_{\phi}(f_{\phi}(\epsilon_{t};s_{t})|s_{t})-Q_{\theta}(s_{t},f_{\phi}(\epsilon_{t};s_{t}))\right]$
 \end{frame}
 
 %======SAC Algorithmus============
 \subsection{SAC Algorithmus}
 
 \begin{frame}{Algorithmus (1/2)}
+\begin{algorithm}[H]
+\SetAlgoLined
 
+Initialize parameter vectors $\psi$,$\overline{\psi}$,$\theta$,$\phi$\\
+\For{each iteration}{
+	 \For{each environment step}{
+  		$a_{t}\sim \pi_{\phi}(a_{t}|s_{t})$\\
+  		$s_{t+1}\sim p(s_{t+1}|s_{t},a_{t})$\\
+  		$D \leftarrow D \cup \{(s_{t},a_{t},r(s_{t},a_{t}),s_{t+1})\}$\\
+ 	}
+ 	\For{each gradient step}{
+		$\psi \leftarrow \psi -\lambda_{V}\hat{\nabla}_{\psi}J_{V}(\psi)$\\
+		$\theta_{i} \leftarrow \theta_{i}-\lambda_{Q}\hat{\nabla}_{\theta_{i}}J_{Q}(\theta_{i})$ for $i \in \{1,2\}$ \\
+		$\phi \leftarrow \phi - \lambda_{\pi}\hat{\nabla}_{\phi}J_{\pi}(\phi)$\\
+		$\overline{\psi} \leftarrow \tau\psi + (1-\tau)\overline{\psi}$\\
+	}
+}
+ \caption{Soft Actor-Critic}
+\end{algorithm}
 \end{frame}
 
 \begin{frame}{Algorithmus (2/2)}
