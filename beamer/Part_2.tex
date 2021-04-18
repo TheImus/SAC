@@ -79,8 +79,8 @@ $J_{\pi}(\phi)=\mathbb{E}_{s_{t}\sim D,\epsilon_{t}\sim N}\left[log\pi_{\phi}(f_
 
 \begin{frame}{Algorithmus (1/2)}
 \begin{algorithm}[H]
+{\small
 \SetAlgoLined
-
 Initialize parameter vectors $\psi$,$\overline{\psi}$,$\theta$,$\phi$\\
 \For{each iteration}{
 	 \For{each environment step}{
@@ -94,6 +94,7 @@ Initialize parameter vectors $\psi$,$\overline{\psi}$,$\theta$,$\phi$\\
 		$\phi \leftarrow \phi - \lambda_{\pi}\hat{\nabla}_{\phi}J_{\pi}(\phi)$\\
 		$\overline{\psi} \leftarrow \tau\psi + (1-\tau)\overline{\psi}$\\
 	}
+}
 }
  \caption{Soft Actor-Critic}
 \end{algorithm}
