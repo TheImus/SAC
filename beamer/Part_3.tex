@@ -12,7 +12,7 @@
         $\mathcal{D} \leftarrow \emptyset$\\
         \For{each iteration}{
              \For{each environment step}{
-                  $a_{t}\sim \pi_{\phi}(a_{t}|s_{t})$\\
+                  $a_{t}\sim \pi_{\phi}(a_{t}|s_{t})$,
                   $s_{t+1}\sim p(s_{t+1}|s_{t},a_{t})$\\
                   $D \leftarrow D \cup \{(s_{t},a_{t},r(s_{t},a_{t}),s_{t+1})\}$\\
              }
