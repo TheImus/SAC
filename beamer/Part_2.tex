@@ -32,8 +32,9 @@ Mit Parametervektoren \textcolor{blue}{$\psi$}, \textcolor{red}{$\theta$} und \t
 \item eigenes Netzwetk nicht notwendig, aber
 \begin{itemize}
 \item stabilisiert Training
-\item macht simultanes Training aller Netzwerke möglich
+\item macht simultanes Training aller Netzwerke möglich \\[12pt]
 \end{itemize}
+\item somit: Berechnung des state values über eigenes Netzwerk
 \end{itemize}
 \end{frame}
 
@@ -64,14 +65,34 @@ $\hat{\nabla}_{\theta}J_{Q}(\theta)=\nabla_{\theta}Q_{\theta}(a_{t},s_{t})(Q_{\t
 \item Minimierung des Fehlers
 \item Fehler: KL-Divergenz
 \end{itemize}
-$J_{\pi}(\phi)=\mathbb{E}_{s_{t}\sim D}\left[D_{KL}\left(\pi_{\phi}(\cdot | s_{t})||\frac{exp(Q_{\theta}(s_{t},\cdot))}{Z_{\theta}(s_{t})}\right)\right]$
+$J_{\pi}(\phi)=\mathbb{E}_{s_{t}\sim D}\left[D_{KL}\left(\pi_{\phi}(\cdot | s_{t})\bigg \vert\bigg \vert\frac{exp(Q_{\theta}(s_{t},\cdot))}{Z_{\theta}(s_{t})}\right)\right]$ \\[12pt]
 \begin{itemize}
-\item der reparameterization trick wird angewandt
+\item zur Berechnung des Gradienten: reparameterization trick
 \end{itemize}
-$a_{t}=f_{\phi}(\epsilon_{t};s_{t})$
+\end{frame}
 
-$\Rightarrow$
-$J_{\pi}(\phi)=\mathbb{E}_{s_{t}\sim D,\epsilon_{t}\sim N}\left[log\pi_{\phi}(f_{\phi}(\epsilon_{t};s_{t})|s_{t})-Q_{\theta}(s_{t},f_{\phi}(\epsilon_{t};s_{t}))\right]$
+\begin{frame}{Reparameterization trick (1/2)}
+\begin{itemize}
+\item Ziel: neue Parameter des Erwartungswertes
+\item[] $\Rightarrow$ umschreiben der Zielfunktion und des Gradienten \\[12pt]
+\item $f_{\phi}$: vektorwertige Abbildung auf Aktionsraum, mit Parameter $\phi$
+\item $\epsilon$: Vektor, aus fixer Vertilungsfunktion, z.B. Gauss \\[12pt]
+\end{itemize}
+$a_{t}=f_{\phi}(\epsilon_{t};s_{t})$\\[6pt]
+neuer Parameter für Erwartungswert: $\mathbb{E}_{s_{t}\sim D} \Rightarrow \mathbb{E}_{s_{t}\sim D,\epsilon_{t}\sim N}$
+\end{frame}
+
+\begin{frame}{Reparameterization trick (2/2)}
+\begin{itemize}
+\item Zielfunktion kann umgeschrieben werden:
+\end{itemize}
+$J_{\pi}(\phi)=\mathbb{E}_{s_{t}\sim D,\epsilon_{t}\sim N}\left[log\pi_{\phi}(f_{\phi}(\epsilon_{t};s_{t})|s_{t})-Q_{\theta}(s_{t},f_{\phi}(\epsilon_{t};s_{t}))\right]$ \\[12pt]
+
+\begin{itemize}
+\item Gradient kann geschätzt werden:
+\end{itemize}
+$\hat\nabla_{\phi}J_{\pi}(\phi) =$ \\[6pt]
+$\nabla_{\phi} log \pi_{\phi}(a_{t}|s_{t}) + (\nabla_{a_{t}}log \pi_{\phi}(a_{t}|s_{t})-\nabla_{a_{t}}Q(s_{t},a_{t}))\nabla_{\phi}f_{\phi}(\epsilon_{t};s_{t})$
 \end{frame}
 
 %======SAC Algorithmus============
