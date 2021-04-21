@@ -1,34 +1,5 @@
 \section{Ergebnisse}
 
-
-\begin{frame}
-    \frametitle{Algorithmus}
-    \begin{algorithm}[H]
-        {\small
-        \SetAlgoLined
-        Input $\theta_{1}$,$\theta_{2}$ ,$\phi$\\
-        $\overline{\theta_{1}} \leftarrow  \theta_{1}$ ,
-        $\overline{\theta_{2}} \leftarrow \theta_{2}$ ,
-        $\mathcal{D} \leftarrow \emptyset$\\
-        \For{each iteration}{
-             \For{each environment step}{
-                  $a_{t}\sim \pi_{\phi}(a_{t}|s_{t})$,
-                  $s_{t+1}\sim p(s_{t+1}|s_{t},a_{t})$\\
-                  $D \leftarrow D \cup \{(s_{t},a_{t},r(s_{t},a_{t}),s_{t+1})\}$\\
-             }
-             \For{each gradient step}{
-                $\theta_{i} \leftarrow \theta_{i}-\lambda_{Q}\hat{\nabla}_{\theta_{i}}J_{Q}(\theta_{i})$ for $i \in \{1,2\}$ \\
-                $\phi \leftarrow \phi - \lambda_{\pi}\hat{\nabla}_{\phi}J_{\pi}(\phi)$\\
-                $\alpha \leftarrow \alpha - \lambda\hat{\nabla}_{\alpha}J(\alpha)$\\
-                $\overline{\theta_{i}} \leftarrow \tau\theta_{i} + (1-\tau)\overline{\theta_{i}}$ for $i \in \{1,2\}$ \\
-            }
-        }
-        }
-         \caption{Soft Actor-Critic}
-        \end{algorithm}
-     
-\end{frame}
-
 \begin{frame}{Ziel der Experimente}
         \begin{itemize}
             \item Stabilität und Sample Komplexität im Vergleich zu anderen Algorithmen
