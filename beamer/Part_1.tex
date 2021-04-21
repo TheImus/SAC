@@ -1,12 +1,14 @@
 \section{Soft Actor-Critic Grundlagen}
 \subsection{Grundlegender Aufbau}
-\begin{frame}{Probleme die bei RL Algorithmen auftreten}
+\begin{frame}{Einordnung}
 	\begin{itemize}
-		\item On-Policy Algorithmen haben eine niedrige Sample Effizienz  
-		\item Off-Policy Algorithmen sind oft instabil und benötigen eine genaue Anpassung der Hyperparameter
-		\item Soft Actor-Critic nutzt einen Off-Policy Ansatz und verbessert die Stabilität
+		\item Soft Actor-Critic ist ein off-policy Algorithmus mit Ähnlichkeiten zu DDPG und TD3  
+		\item Im Gegensatz zu diesen nutzt Soft Actor-Critic jedoch eine stochastische Policy
+		\item Durch den off-policy Ansatz besitzt Soft Actor-Critic eine hohe Probeneffizienz 
+		\item Die Stabilität kann im Vergleich zu DDPG und TD3 erhöht werden 
 	\end{itemize} 
 \end{frame}
+
 
 \begin{frame}{Actor-Critic}
 	\begin{itemize}
@@ -29,6 +31,15 @@
 		\end{equation}
 	\end{itemize} 
 \end{frame}
+
+\begin{frame}{Entropie}
+	\begin{itemize}
+		
+		\item Durch die Maximierung der Entropie werden Aktionen mit ähnlichen Q-values ähnlich oft ausgewählt.
+		\item Die ausgewählte Aktion ist damit möglichst zufällig
+	\end{itemize} 
+\end{frame}
+
 \subsection{Soft Policy Iteration}
 \begin{frame}{Soft Policy Iteration}
 	\begin{itemize}
@@ -45,7 +56,7 @@
 			\mathcal{T}^\pi \mathnormal{Q}(s_t,a_t) \triangleq \mathnormal{r}(s_T, a_t) + \gamma \mathbb{E}_{s_t+1\sim \mathnormal{p}}[\mathnormal{V}(s_{t+1})] \notag
 		\end{equation}
 		\begin{equation}
-			\mathnormal{V}(s_{t}) = \mathbb{E}_{a_t \sim \pi}[\mathnormal{Q}(s_t, a_t) - \mathrm{log} \, \pi (a_t|s_t)] \notag
+			\mathnormal{V}(s_{t}) = \mathbb{E}_{a_t \sim \pi}[\mathnormal{Q}(s_t, a_t) - \alpha \, \mathrm{log} \, \pi (a_t|s_t)] \notag
 		\end{equation}
 	\end{itemize}
 \end{frame}
@@ -55,7 +66,7 @@
 		\item Policy wird an die neue Q-Funktion angepasst
 		\item Mit Hilfe der Kullback-Leibler Divergenz wird die Policy auf eine gaußsche Verteilung projiziert
 		\begin{equation}
-			\pi_{\mathrm{new}} = \mathrm{arg} \, \min_{\pi^\prime \in \Pi} \mathrm{D_{KL}} \left( \pi^\prime(\cdot | s_t) \parallel \frac{\mathrm{exp} (\mathnormal{Q}^{\pi_{\mathrm{old}}}(s_t, \cdot))}{\mathnormal{Z}^{\pi_{\mathrm{old}}}(s_t)} \right) \notag
+			\pi_{\mathrm{new}} = \mathrm{arg} \, \min_{\pi^\prime \in \Pi} \mathrm{D_{KL}} \left( \pi^\prime(\cdot | s_t) \parallel \frac{\mathrm{exp} (\frac{1}{\alpha}\mathnormal{Q}^{\pi_{\mathrm{old}}}(s_t, \cdot))}{\mathnormal{Z}^{\pi_{\mathrm{old}}}(s_t)} \right) \notag
 		\end{equation}
 	\end{itemize} 
 \end{frame}
