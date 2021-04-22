@@ -12,8 +12,9 @@
 \usepackage{geometry}
 \usepackage{graphicx}
 \usepackage{hyperref}
+\usepackage[ruled,vlined]{algorithm2e}
 
-\geometry{left=1cm, right=1cm, top=2cm}
+\geometry{left=1cm, right=1cm, top=2cm, bottom=2cm}
 
 \setlength{\parindent}{0em}
 \setlength{\parskip}{1ex}
@@ -32,7 +33,7 @@
 \section{Actor-Critic Ansatz}
 Der Actor nimmt die Aktionsauswahl für einen bestimmten Zustand vor, der Critic lernt die Q-function und ''kritisiert'' die Entscheidungen des Actors.
 
-\begin{center}\includegraphics[width=40ex]{figures/figtmp34.png}\end{center}
+\begin{center}\includegraphics[width=35ex]{figures/figtmp34.png}\end{center}
 
 \section{Entropie Maximierung}
 Während standard RL Algorithmen nur die Belohnung maximieren, maximiert Soft Actor-Critic zusätzlich die Entropie der policy. Die Entropie ist höher, je ungenauer festzustellen ist, welche Aktion die optimale ist. Dies regt somit mehr zum Erforschen der Umgebung an. Die Entropie-Maximierung wird mit dem temperature-Wert $\alpha$ reguliert.
@@ -82,7 +83,31 @@ Die Fehlerfunktion des Actors kann dann wie folgt umgeschrieben werden:
 J_{\pi}(\phi)=\mathbb{E}_{s_{t}\sim D,\epsilon_{t}\sim N}\left[\alpha\mathrm{log}\pi_{\phi}(_{\phi}(\epsilon_{t};s_{t})|s_{t})-Q_{\theta}(s_{t},_{\phi}(\epsilon_{t};s_{t}))\right]
 \end{equation}
 
+\section{Algorithmus}
 
+\begin{algorithm}[H]
+        {\small
+        \SetAlgoLined
+        Input $\theta_{1}$,$\theta_{2}$ ,$\phi$\\
+        $\overline{\theta_{1}} \leftarrow  \theta_{1}$ ,
+        $\overline{\theta_{2}} \leftarrow \theta_{2}$ ,
+        $\mathcal{D} \leftarrow \emptyset$\\
+        \For{each iteration}{
+             \For{each environment step}{
+                  $a_{t}\sim \pi_{\phi}(a_{t}|s_{t})$,
+                  $s_{t+1}\sim p(s_{t+1}|s_{t},a_{t})$\\
+                  $D \leftarrow D \cup \{(s_{t},a_{t},r(s_{t},a_{t}),s_{t+1})\}$\\
+             }
+             \For{each gradient step}{
+                $\theta_{i} \leftarrow \theta_{i}-\lambda_{Q}\hat{\nabla}_{\theta_{i}}J_{Q}(\theta_{i})$ for $i \in \{1,2\}$ \\
+                $\phi \leftarrow \phi - \lambda_{\pi}\hat{\nabla}_{\phi}J_{\pi}(\phi)$\\
+                $\alpha \leftarrow \alpha - \lambda\hat{\nabla}_{\alpha}J(\alpha)$\\
+                $\overline{\theta_{i}} \leftarrow \tau\theta_{i} + (1-\tau)\overline{\theta_{i}}$ for $i \in \{1,2\}$ \\
+            }
+        }
+        }
+         \caption{Soft Actor-Critic}
+\end{algorithm}
 
 \end{multicols}
 
