@@ -2,13 +2,23 @@
 \subsection{Grundlegender Aufbau}
 \begin{frame}{Einordnung}
 	\begin{itemize}
-		\item Soft Actor-Critic ist ein off-policy Algorithmus mit Ähnlichkeiten zu DDPG und TD3  
-		\item Im Gegensatz zu diesen nutzt Soft Actor-Critic jedoch eine stochastische Policy
-		\item Durch den off-policy Ansatz besitzt Soft Actor-Critic eine hohe Probeneffizienz 
-		\item Die Stabilität kann im Vergleich zu DDPG und TD3 erhöht werden 
+		\item Soft Actor-Critic ist ein off-policy reinforcment learning Algorithmus für kontinuierliche Aktions- und Zustandsräume 
+		\item Wird in zwei Veröffentlichungen beschrieben:
+		\begin{itemize}
+			\item Soft Actor-Critic:Off-Policy Maximum Entropy Deep Reinforcement Learning with a Stochastic Actor
+			\item Soft Actor-Critic Algorithms and Applications
+		\end{itemize}
+		\item Besitzt Ähnlichkeiten zu DDPG und TD3 
 	\end{itemize} 
 \end{frame}
 
+\begin{frame}{Deep Deterministic Policy Gradient (DDPG)}
+	\begin{itemize}
+		\item Basiert auf Deep Q-Networks
+		\item Approximiert mit einem Neuronalen Netz eine Q-Function
+		\item Nutzt für die Aktionsauswahl einen Actor-Critic Ansatz
+	\end{itemize} 
+\end{frame}
 
 \begin{frame}{Actor-Critic}
 	\begin{itemize}
@@ -16,7 +26,25 @@
 		\item Actor lernt eine Policy
 		\item Critic lernt eine Value Function
 	\end{itemize} 
-	\includegraphics[width=190pt]{figures/A-regular-actor-critic-model-TD-temporal-difference.png}
+	\includegraphics[width=120pt]{figures/figtmp34.png}
+	\cite{actorcritic}
+\end{frame}
+
+\begin{frame}{Twin-Delayed DDPG (TD3)}
+	\begin{itemize}
+		\item Weiterentwicklung von DDPG
+		\item Nutzt zwei Netze für die Schätzung der Q-Values
+		\item Q-Value Netze werden öfter upgedatet als andere Netze
+		\item Fügt noise zu den target actions hinzu
+	\end{itemize} 
+\end{frame}
+
+\begin{frame}{Soft Actor-Critic}
+	\begin{itemize}
+		\item Im Gegensatz zu DDPG und TD3 nutzt Soft Actor-Critic eine stochastische Policy
+		\item Durch den off-policy Ansatz besitzt Soft Actor-Critic eine hohe Probeneffizienz 
+		\item Die Stabilität kann im Vergleich zu DDPG und TD3 erhöht werden 
+	\end{itemize} 
 \end{frame}
 
 \begin{frame}{Maximierung der Entropie}
@@ -34,8 +62,8 @@
 
 \begin{frame}{Entropie}
 	\begin{itemize}
-		
-		\item Durch die Maximierung der Entropie werden Aktionen mit ähnlichen Q-values ähnlich oft ausgewählt
+		\item Niedrige entspricht der Wahl einer festen Aktion
+		\item Durch die Maximierung der Entropie haben Aktionen mit ähnlichen Q-Values eine ähnlich Wahrscheinlichkeit ausgewählt zu werden
 		\item Die ausgewählte Aktion ist damit möglichst zufällig
 	\end{itemize} 
 \end{frame}
@@ -58,6 +86,7 @@
 		\begin{equation}
 			\mathnormal{V}(s_{t}) = \mathbb{E}_{a_t \sim \pi}[\mathnormal{Q}(s_t, a_t) - \alpha \, \mathrm{log} \, \pi (a_t|s_t)] \notag
 		\end{equation}
+		\item Durch wiederholte Ausführung des Operators kann die Q-Function einer Policy $\pi$ berechnet werden
 	\end{itemize}
 \end{frame}
 
