@@ -1,4 +1,8 @@
 \section{Soft Actor-Critic im kontinuierlichen Raum}
+\begin{frame}
+    \frametitle{Inhaltsverzeichnis}
+    \tableofcontents[currentsection]
+\end{frame}
 %======SAC Grundprinzip===========
 \subsection{SAC Grundprinzip}
 
@@ -92,6 +96,7 @@ $J_{\pi}(\phi)=\mathbb{E}_{s_{t}\sim D,\textcolor{tugreen}{\epsilon_{t}\sim N}}\
 \center$J(\alpha)=\mathbb{E}_{a_{t}\sim\pi_{t}}\left[-\alpha \mathrm{log}\pi_{t}(a_{t}|s_{t})-\alpha \mathcal{H}\right]$
 \end{frame}
 
+\subsection{Algorithmus}
 \begin{frame}{Algorithmus (1/2)}
 \begin{itemize}
 \item Benutzung zweier Q-Funktionen
