@@ -4,7 +4,7 @@
     \tableofcontents[currentsection]
 \end{frame}
 
-\subsection{Grundlegender Aufbau}
+\subsection{Motivation}
 \begin{frame}{Einordnung}
 	\begin{itemize}
 		\item Soft Actor-Critic ist ein off-policy reinforcment learning Algorithmus für kontinuierliche Aktions- und Zustandsräume 
@@ -21,6 +21,7 @@
 	\begin{itemize}
 		\item Basiert auf Deep Q-Networks
 		\item Approximiert mit einem Neuronalen Netz eine Q-Function
+		\item Für eine höhere Stabilität wird ein Target Netzwerk genutzt
 		\item Nutzt für die Aktionsauswahl einen Actor-Critic Ansatz
 	\end{itemize} 
 \end{frame}
@@ -68,7 +69,7 @@
 
 \begin{frame}{Entropie}
 	\begin{itemize}
-		\item Niedrige entspricht der Wahl einer festen Aktion
+		\item Niedrige Entropie entspricht der Wahl einer festen Aktion
 		\item Durch die Maximierung der Entropie haben Aktionen mit ähnlichen Q-Values eine ähnlich Wahrscheinlichkeit ausgewählt zu werden
 		\item Die ausgewählte Aktion ist damit möglichst zufällig
 	\end{itemize} 
