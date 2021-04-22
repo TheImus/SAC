@@ -66,7 +66,8 @@ $J_{\pi}(\phi)=\mathbb{E}_{s_{t}\sim D}\left[\mathbb{E}_{a_{t}\sim \pi_{\phi}}\l
 
 \begin{frame}{Reparameterization trick}
 \begin{itemize}
-\item Ziel: statistisches Netzwerk $\Rightarrow$ deterministisches Netzwerk
+\item Ziel: stochastisches Netzwerk $\Rightarrow$ deterministisches Netzwerk
+\item[] $\Rightarrow$ einfachere Gradientenberechnung und Training
 \item $f_{\phi}$: vektorwertige Abbildung auf Aktionsraum, mit Parameter $\phi$
 \item $\epsilon$: noise Vektor, aus fixer Vertilungsfunktion, z.B. Gauss \\[12pt]
 \end{itemize}
@@ -94,10 +95,11 @@ $J_{\pi}(\phi)=\mathbb{E}_{s_{t}\sim D,\textcolor{tugreen}{\epsilon_{t}\sim N}}\
 \begin{frame}{Algorithmus (1/2)}
 \begin{itemize}
 \item Benutzung zweier Q-Funktionen
-\item[] $\Rightarrow$ verschnellert Training bei komplizierten Problemen \\[12pt]
 \item Training zweier Parameter $\theta_{1}$ und $\theta_{2}$
 \item Gradientenberechnung mit $min\{Q_{\theta_{1}},Q_{\theta_{2}}\}$
-\item target Q-Netzwerk wird geupdatet
+\item[] $\Rightarrow$ verhindert starke überschätzung des Q-Wertes
+\item[] $\Rightarrow$ bessere Performance
+\item target Q-Netzwerke werden angepasst
 \end{itemize}
 \end{frame}
 
